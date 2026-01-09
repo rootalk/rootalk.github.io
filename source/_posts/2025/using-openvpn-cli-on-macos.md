@@ -1,7 +1,7 @@
 ---
-title: 在 macOS 上通过脚本管理 OpenVPN CLI
+title: 在 macOS 上通过脚本或 Docker 管理 OpenVPN Client
 date: 2025-12-15 18:28:39
-updated: 2025-12-15 18:28:39
+updated: 2026-01-09 18:28:39
 tag:
   - 网络
 ---
@@ -10,9 +10,9 @@ tag:
 
 <!--more-->
 
-## 一、创建脚本
+## 一、脚本方案
 
-前提条件：
+### 1.前提条件：
 
 - OpenVPN 已安装：`brew install openvpn`
 - 基础命令能运行：`sudo openvpn --config ~/Downloads/myvpn.ovpn`
@@ -136,7 +136,7 @@ case "$1" in
 esac
 ```
 
-## 二、配置“免密运行”白名单
+### 2.配置“免密运行”白名单
 
 由于上面的脚本需要 Root 权限才能正常运行，每次执行脚本都要输入密码，因此做一下调整
 
@@ -179,7 +179,7 @@ your_username ALL=(ALL) NOPASSWD: /usr/local/bin/myvpn
 
 保存退出。
 
-## 三、最后成果
+### 3.最后成果
 
 以后你需要管理 VPN 时，只需要在终端输入以下命令：
 
@@ -188,3 +188,96 @@ your_username ALL=(ALL) NOPASSWD: /usr/local/bin/myvpn
 - **状态**： `sudo myvpn status`
 
 神奇之处在于： 虽然你加了 `sudo`，但因为我们配置了白名单，系统不会再要求你输入密码了！
+
+
+## 二、Docker 方案（推荐）
+
+### 1. 配置结构
+
+```
+$ tree                                                                                                                                   [14:53:47]
+.
+├── conf
+│   ├── auth.txt
+│   └── client.ovpn
+├── docker-compose.yaml
+```
+
+### 2. docker-compose.yaml
+
+```yaml
+services:
+  openvpn_client:
+    image: dperson/openvpn-client:aarch64
+    container_name: openvpn-client
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./conf:/vpn
+    dns:
+      - 223.5.5.5
+    ports:
+      - 3128:3128
+      - 1080:1080
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    command: "-c /vpn/client.ovpn"
+
+  3proxy:
+    image: tarampampam/3proxy:1
+    container_name: openvpn-to-proxy
+    # socks: 1080, http: 3128
+    network_mode: "service:openvpn_client"
+    depends_on:
+      - openvpn_client
+```
+
+### 3. client.ovpn
+
+示例内容
+
+```config
+client
+
+dev tun
+
+proto udp
+
+remote x.x.x.x 2294
+
+resolv-retry infinite
+
+nobind
+
+persist-key
+persist-tun
+
+route x.x.x.x 255.255.0.0
+
+<ca>
+-----BEGIN CERTIFICATE-----
+your-content
+-----END CERTIFICATE-----
+</ca>
+
+<cert>
+-----BEGIN CERTIFICATE-----
+your-content
+-----END CERTIFICATE-----
+</cert>
+
+<key>
+-----BEGIN PRIVATE KEY-----
+your-content
+-----END PRIVATE KEY-----
+</key>
+
+auth-user-pass auth.txt
+
+verb 3
+```
+
+### 4. 说明
+
+- `auth.txt` 的内容是用户名+换行+密码（没有+号）
+- 启动后即可通过 `socks5://127.0.0.1:1080` 或者 `http://127.0.0.1:3128` 访问 VPN 网络
