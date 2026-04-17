@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Gallen's Blog
+title: Glen's Blog
 subtitle: ''
 description: '生命在于折腾。博客，Blog，记录智能家居，电子数码，开发运维，前端开发'
 keywords: '前端开发，智能家居，homeassistant，前端开发，电子数码'
-author: Gallen
+author: Glen
 # language: zh-CN
 language: zh-cn
 timezone: Asia/Shanghai
