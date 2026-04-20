@@ -1,6 +1,6 @@
 # Blog
 
-https://hglog.github.io
+https://rootalk.github.io
 
 ## Install Theme
 
@@ -10,7 +10,7 @@ https://hglog.github.io
 # 更新主题
 # rm -rf themes/minos
 
-git clone https://github.com/glenhoooo/hexo-theme-minos.git themes/minos
+git clone https://github.com/glenhooo/hexo-theme-minos.git themes/minos
 cp themes/minos/_config.example.yml themes/minos/_config.yml
 # node init_script.js
 ```
