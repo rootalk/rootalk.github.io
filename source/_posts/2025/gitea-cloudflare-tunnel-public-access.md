@@ -7,7 +7,7 @@ tag:
   - 网络
 ---
 
-内网搭建 Gitea，结合 Cloudflare Tunnel，可轻松实现安全、便捷的公网访问，无需公网 IP。本文主要记录 Gitea 的 Docker 部署流程及 Cloudflare Tunnel 配置方法，助你快速将私有 Git 服务安全暴露到互联网。
+内网搭建 Gitea，结合 Cloudflare Tunnel，可轻松实现安全、便捷的公网访问，无需公网 IP。本文主要记录 Gitea 的 Docker 部署流程及 Cloudflare Tunnel 配置方法，快速将私有 Git 服务安全暴露到互联网。
 
 <!--more-->
 

@@ -1,19 +1,21 @@
 ---
-title: 学习 Emby Server 解锁及优化
+title: Emby Server 解锁及优化
 date: 2023-12-30 23:41:50
+updated: 2026-05-12 18:28:39
 tag:
   - Emby
 ---
 
-<img src="/images/2023/emby_plugin.jpg" alt="Emby Plugin" width="100%">
-
-网上很多 Emby 的资源都失效了，不过教程还是挺多，本文主要参考文章「重新学习并解锁emby」，总结在折腾 Emby 过程中的一些心得。
+本文主要参考文章「重新学习并解锁emby」，记录在折腾 Emby 过程中的一些经验。
 
 <!--more-->
 
 > 本文不提供任何破解文件下载，仅作分享交流，请[支持正版](https://emby.media/premiere.html)。
 
-## 2024-05-17 补充
+
+- 2026-05-12: 推荐使用[这个项目](https://github.com/OpenGG/docker-embyhack)通过 GitHub Actions 自动构建。
+
+- 2024-05-17 补充:
 
 ### 修改服务端文件的详细步骤
 

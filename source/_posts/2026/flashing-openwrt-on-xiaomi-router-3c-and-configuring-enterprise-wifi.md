@@ -6,7 +6,7 @@ tag:
   - 网络
 ---
 
-本文记录将旧设备小米路由器3c刷 OpenWrt 系统，并配置连接企业 WPA2/WPA3 Enterprise 认证 Wi-Fi 的过程。
+将旧设备小米路由器3c刷入 OpenWrt 系统，并配置连接企业 WPA2/WPA3 Enterprise 认证 Wi-Fi。
 
 <!--more-->
 

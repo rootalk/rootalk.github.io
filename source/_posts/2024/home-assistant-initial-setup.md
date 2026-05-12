@@ -6,8 +6,6 @@ tag:
   - home-assistant
 ---
 
-<img src="/images/2024/hass-init-setup/cover.jpg" width="100%">
-
 本文主要介绍在 Home Assistant 安装后的初始设置，包括常用插件和集成安装、主题美化以及 Lovelace 配置等内容。
 
 <!--more-->
